@@ -68,22 +68,36 @@ public class LoginPage {
 		password.sendKeys(pass);
 	}
 	public void clickLogin() throws Exception{//*[@id="nc_68__scale_text"]/span
-		JavascriptExecutor js = (JavascriptExecutor)driver;
-		driver.manage().timeouts().setScriptTimeout(20, TimeUnit.SECONDS);
-		long start_time = System.currentTimeMillis();	
-		new WebDriverWait(driver,10).until(ExpectedConditions.visibilityOf(btnSlide));
-		Actions builders = new Actions(driver);
-		Point point = btnSlide.getLocation();
-		int x = point.getX();
-		int y = point.getY();
-		 Thread.sleep(10000);
-		Action pullSlide = builders.dragAndDropBy(btnSlide, x + 265, y).build();
-		pullSlide.perform();
-		
-		js.executeScript("return document.readyState");
-	        Thread.sleep(10000);
-			
-			
+//		
+//		driver.manage().timeouts().setScriptTimeout(20, TimeUnit.SECONDS);
+//		long start_time = System.currentTimeMillis();	
+//		
+//		Actions builders = new Actions(driver);
+//		Point point = btnSlide.getLocation();
+//		int x = point.getX();
+//		int y = point.getY();
+//		 Thread.sleep(10000);
+//		Action pullSlide = builders.dragAndDropBy(btnSlide, x + 265, y).build();
+//		pullSlide.perform();
+//		
+//		js.executeScript("return document.readyState");
+		 Thread.sleep(5000);
+		if(btnLogin.isEnabled()) {
+       
+		System.out.println("haha");	
+		btnLogin.click();
+		}else {
+			JavascriptExecutor js = (JavascriptExecutor)driver;
+			new WebDriverWait(driver,10).until(ExpectedConditions.visibilityOf(btnSlide));
+			Actions builders = new Actions(driver);
+			Point point = btnSlide.getLocation();
+			int x = point.getX();
+			int y = point.getY();
+			Action pullSlide = builders.dragAndDropBy(btnSlide, x + 265, y).build();
+			pullSlide.perform();
+			js.executeScript("return document.readyState");
+			Thread.sleep(5000);
+		}
 		
 		
 	}
@@ -98,6 +112,10 @@ public class LoginPage {
 	}
 	public String getMessagePass()throws Exception{
 		return messagePass.getText();
+	}
+	public void clearInput() {
+		this.username.clear();
+		this.password.clear();
 	}
 	//verify
 	public void verifyLogin(String expectedResult)throws Exception{

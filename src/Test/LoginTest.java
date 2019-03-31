@@ -21,7 +21,7 @@ public class LoginTest {
 	}
 	@BeforeTest
 	public void setUp(){
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\dtthue\\workspace\\lazada\\driver\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\ASUS\\Desktop\\test\\driver\\chromedriver.exe");
 		driver = new ChromeDriver();
 		String url = "https://www.lazada.vn/";
 		driver.get(url);
@@ -30,40 +30,46 @@ public class LoginTest {
 		navigateLogin.click();
 		obj = new LoginPage(driver, timeout);
 	}
-	@Test(enabled = false)
+	@Test()
 	public void submitWithInputEmpty() throws Exception{
 		Thread.sleep(5000);
 		obj.clickLogin();
 		
 		obj.verifyLogin("You can't leave this empty.");
 	}
-	@Test(enabled = false)
+	@Test()
 	public void submitWithEmptyUsernameInput()throws Exception{
-		obj.sendPassword("thanhhue97");
 		Thread.sleep(5000);
+		obj.clearInput();
+		Thread.sleep(5000);
+		obj.sendPassword("thanhhue97");
+		
 		obj.clickLogin();
 		obj.verifyLoginUsername("You can't leave this empty.", obj.getMessageUser());
 	}
-	@Test(enabled = false)
+	@Test()
 	public void submitWithEmptyPasswordInput()throws Exception{
-		obj.sendUsername("0963101858");
 		Thread.sleep(5000);
+		obj.clearInput();
+		Thread.sleep(5000);
+		obj.sendUsername("0963101858");
 		obj.clickLogin();
 		obj.verifyLoginUsername("You can't leave this empty.", obj.getMessagePass());
 	}
 	@Test
 	public void submitWithInputUserIsWord()throws Exception{
+		obj.clearInput();
 		obj.sendUsername("thanhhue");
 		obj.sendPassword("thanhhue97");
 		Thread.sleep(5000);
 		obj.clickLogin();
-		obj.verifyLoginUsername("You can't leave this empty.", obj.getMessagePass());
+//		obj.verifyLoginUsername("You can't leave this empty.", obj.getMessagePass());
 	}
-//	@AfterTest
-//	public void close(){
-//		if(driver != null){
-//			driver.close();
-//		}
-//		
-//	}
+	@AfterTest
+	public void close(){
+		if(driver != null){
+			driver.close();
+		}
+		
+	}
 }
